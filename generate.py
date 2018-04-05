@@ -7,20 +7,18 @@ parser.add_argument("--model")
 parser.add_argument("--length", type=int)
 args = parser.parse_args()
 
-f = open(args.model, 'rb')
-d = pickle.load(f)
-f.close()
-k = list(d.keys())
-firstword = random.choice(k)
-List = []
-List.append(firstword)
+with open(args.model, "rb") as f:
+    words = pickle.load(f)
+allwords = list(words.keys())
+firstword = random.choice(allwords)
+ourtext = []
+ourtext.append(firstword)
 for i in range(args.length - 1):
-    x = []  # временный массив, учитывая частоты
-    t = d[List[i]]  # словарь возможных слов после List[i]
-    for j in t:
-        for k in range(t[j]):
-            x.append(j)
-    List.append(random.choice(x))
+    array_frequence = []  # временный массив, учитывая частоты
+    possible_words = words[ourtext[i]]  # словарь возможных слов после List[i]
+    for j in possible_words:
+        for k in range(possible_words[j]):
+            array_frequence.append(j)
+    ourtext.append(random.choice(array_frequence))
 
-for i in range(len(List)):
-    print(List[i], end=' ')
+print(' '.join(ourtext))
