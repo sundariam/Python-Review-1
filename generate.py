@@ -13,12 +13,15 @@ allwords = list(words.keys())
 firstword = random.choice(allwords)
 ourtext = []
 ourtext.append(firstword)
+
 for i in range(args.length - 1):
-    array_frequence = []  # временный массив, учитывая частоты
-    possible_words = words[ourtext[i]]  # словарь возможных слов после List[i]
+    possible_words = words[ourtext[i]]  # словарь возможных слов после ourtext[i]
+    population = []
+    weights = []
     for j in possible_words:
-        for k in range(possible_words[j]):
-            array_frequence.append(j)
-    ourtext.append(random.choice(array_frequence))
+        population.append(j)
+        weights.append(possible_words[j])
+    new_word = random.choices(population, weights, k=1)  # получаем список из 1 нового слова
+    ourtext.append(new_word[0])
 
 print(' '.join(ourtext))
